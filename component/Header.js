@@ -1,6 +1,7 @@
 import Head from 'next/head';
+import { decode } from 'js-base64';
 
-function Header({ title, description, image, link, type, domain }) {
+function Header({ title, description, image, link, type }) {
     return (
         <Head>
             {/* METAS */}
@@ -14,7 +15,7 @@ function Header({ title, description, image, link, type, domain }) {
             <meta property="og:url" content={link} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+            <meta property="og:image" content={decode(image)} />
             <meta property="og:type" content={type} />
             <meta property="og:locale" content="es_ES" />
             <meta property="og:site_name" content="xaconi.dev" />
