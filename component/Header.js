@@ -4,7 +4,8 @@ function Header({ title, description, image, link, type }) {
     return (
         <Head>
             <title>{title}</title>
-            <meta name="description" content={description}></meta>
+            <meta charset="UTF-8" />
+            <meta name="description" content={description} />
             <meta property="og:url" content={link} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
