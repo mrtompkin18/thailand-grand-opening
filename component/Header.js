@@ -14,18 +14,11 @@ function Header({ title, description, image, link, type, domain }) {
             <meta property="og:url" content={link} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
-            <meta property="og:image:secure_url" content={image} />
+            <meta property="og:image" content={'https://i.ytimg.com/vi/xOaA3cTgtJE/hq720.jpg'} />
+            <meta property="og:image:secure_url" content={'https://i.ytimg.com/vi/xOaA3cTgtJE/hq720.jpg'} />
             <meta property="og:type" content={type} />
             <meta property="og:locale" content="es_ES" />
             <meta property="og:site_name" content="xaconi.dev" />
-
-            {/* TWITTER */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:creator" content="@xaconi" />
-            <meta name="twitter:domain" content={domain} />
-            <meta name="twitter:image:src" content={image} />
-            <meta name="twitter:site" content="@xaconi" />
         </Head>
     );
 }
