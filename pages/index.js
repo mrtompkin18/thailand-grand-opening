@@ -66,7 +66,7 @@ export default function Home() {
       "desc": "\"เริ่มนับ 16-06-2021 ตามแผนเปิดประเทศใน 120 วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา\""
     }
 
-    const respone = await fetch("http://localhost:3000/api/screenshot", {
+    const respone = await fetch(`${URL}/api/screenshot`, {
       method: 'POST',
       cache: 'no-cache',
       headers: {
