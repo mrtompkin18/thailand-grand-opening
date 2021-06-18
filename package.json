@@ -8,8 +8,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "moment-timezone": "^0.5.33",
     "next": "11.0.0",
+    "numeral": "^2.0.6",
     "react": "17.0.2",
     "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.0"
   }
 }
