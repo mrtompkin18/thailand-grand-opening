@@ -18,7 +18,7 @@ export default async (req, res) => {
     });
 
     const page = await browser.newPage();
-    page.setViewport({ width: 1128, height: 600 });
+    page.setViewport({ width: 1200, height: 630 });
     page.setContent(`  <html>
     <body>
         <div class="social-image-content">
@@ -37,10 +37,10 @@ export default async (req, res) => {
         body {
             align-items: center;
             display: flex;
-            height: 600px;
-            justify-content: center;
+            width: 1200px;
+            height: 630px;
             margin: 0;
-            width: 1128px;
+            justify-content: center;
             background-color: #111927;
             text-align: center;
         }

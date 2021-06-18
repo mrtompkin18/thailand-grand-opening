@@ -6,10 +6,10 @@ import numeral from "numeral";
 import moment from "moment-timezone";
 import * as BlobUtil from 'blob-util';
 import Header from "../component/Header";
-import ShareButton from 'react-social-share-buttons';
 
 export default function Home() {
   const URL = "https://thailand-grand-opening.vercel.app";
+  // const URL = "http://localhost:3000";
   const TIMEZONE = "Asia/Bangkok";
   const INTERVAL = 1000;
   const TARGET_NUMBER_DAY_DEFAULT = 120;
@@ -23,13 +23,15 @@ export default function Home() {
 
   const [selector, setSelector] = useState(TIME.LUNGTOO);
   const [duration, setDuration] = useState(null);
+  const [sharedImage, setSharedImage] = useState(null);
 
   const { targetDay, startTime } = selector;
 
   useEffect(async () => {
     const url = await generateImage();
+    setSharedImage(url);
     console.log(url);
-  }, []);
+  }, [sharedImage]);
 
   useEffect(() => {
     const currentTime = moment.tz(TIMEZONE);
@@ -68,7 +70,6 @@ export default function Home() {
 
     const respone = await fetch(`${URL}/api/screenshot`, {
       method: 'POST',
-      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -79,6 +80,10 @@ export default function Home() {
     const url = await BlobUtil.blobToDataURL(blob);
 
     return url;
+  }
+
+  const onClickShareToFacebook = () => {
+
   }
 
   const hour = duration?.hours() || 0;
@@ -93,7 +98,7 @@ export default function Home() {
       <Header
         title={`จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}
         description={description}
-        image={'http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg'}
+        image={sharedImage}
         link={URL}
         type="web"
         domain={URL}
@@ -109,12 +114,7 @@ export default function Home() {
         </div>
         <div className="flex justify-center m-10 space-x-3">{renderButton()}</div>
         <div className="w-auto my-0 mx-auto">
-          <ShareButton
-            socialMedia={'facebook'}
-            url={URL}
-            media={"https://imgs.xkcd.com/comics/error_code.png"}
-            text={description}
-          />
+          <button className="flex items-center justify-center px-6 py-3 rounded-lg hover:opacity-90 text-white bg-blue-600">Share to Facebook</button>
         </div>
       </div>
     </>
