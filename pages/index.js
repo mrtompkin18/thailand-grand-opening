@@ -9,9 +9,7 @@ import { generateOpenGrahpImage } from "../lib/getOgImage";
 
 export async function getStaticProps() {
   const ogImagePath = await generateOpenGrahpImage();
-  console.log(ogImagePath);
-
-  return { props: { ogImagePath: null } }
+  return { props: { ogImagePath } }
 }
 
 export default function Home({ ogImagePath }) {
