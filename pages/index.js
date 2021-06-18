@@ -7,7 +7,7 @@ import moment from "moment-timezone";
 import Header from "../component/Header";
 import { generateOpenGrahpImage } from "../lib/getOgImage";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const ogImagePath = await generateOpenGrahpImage();
   return { props: { ogImagePath } }
 }
