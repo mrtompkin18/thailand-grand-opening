@@ -64,9 +64,9 @@ export default function Home() {
         title={`จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}
         description={`ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา`}
         image="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>"
-        link={'google.com'}
+        link="https://thailand-grand-opening.vercel.app"
         type="web"
-        domain={'google.com'}
+        domain="https://thailand-grand-opening.vercel.app"
       />
       <div className="w-screen h-screen flex flex-col justify-center">
         <p className="flex justify-center py-3 text-gray-300 text-5xl font-bold">กำลังจะเปิดประเทศในอีก</p>
