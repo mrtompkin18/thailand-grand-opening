@@ -1,13 +1,15 @@
 import {
   useEffect,
-  useState,
-  useMemo
+  useState
 } from "react";
-import moment from "moment-timezone";
 import numeral from "numeral";
+import moment from "moment-timezone";
+import * as BlobUtil from 'blob-util';
 import Header from "../component/Header";
+import ShareButton from 'react-social-share-buttons';
 
 export default function Home() {
+  const URL = "https://thailand-grand-opening.vercel.app";
   const TIMEZONE = "Asia/Bangkok";
   const INTERVAL = 1000;
   const TARGET_NUMBER_DAY_DEFAULT = 120;
@@ -23,6 +25,11 @@ export default function Home() {
   const [duration, setDuration] = useState(null);
 
   const { targetDay, startTime } = selector;
+
+  useEffect(async () => {
+    const url = await generateImage();
+    console.log(url);
+  }, []);
 
   useEffect(() => {
     const currentTime = moment.tz(TIMEZONE);
@@ -52,21 +59,44 @@ export default function Home() {
     })
   }
 
+  const generateImage = async () => {
+    const data = {
+      "day": "1245 วัน",
+      "time": "18 ชั่วโมง 55 นาที 20 วินาที",
+      "desc": "\"เริ่มนับ 16-06-2021 ตามแผนเปิดประเทศใน 120 วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา\""
+    }
+
+    const respone = await fetch("http://localhost:3000/api/screenshot", {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const blob = await respone.blob();
+    const url = await BlobUtil.blobToDataURL(blob);
+
+    return url;
+  }
+
   const hour = duration?.hours() || 0;
   const minute = duration?.minutes() || 0;
   const second = duration?.seconds() || 0;
   const day = Math.floor(duration?.asDays()) || 0;
   const eventStartTime = moment.tz(startTime, TIMEZONE).format("DD-MM-YYYY");
+  const description = `จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที \n ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา`;
 
   return (
     <>
       <Header
         title={`จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}
-        description={`ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา`}
-        image="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>"
-        link="https://thailand-grand-opening.vercel.app"
+        description={description}
+        image={'http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg'}
+        link={URL}
         type="web"
-        domain="https://thailand-grand-opening.vercel.app"
+        domain={URL}
       />
       <div className="w-screen h-screen flex flex-col justify-center">
         <p className="flex justify-center py-3 text-gray-300 text-5xl font-bold">กำลังจะเปิดประเทศในอีก</p>
@@ -78,6 +108,14 @@ export default function Home() {
           <a className="underline text-gray-500" target="_blank" href="https://www.bangkokbiznews.com/news/detail/944091">#อ้างอิง2</a>
         </div>
         <div className="flex justify-center m-10 space-x-3">{renderButton()}</div>
+        <div className="w-auto my-0 mx-auto">
+          <ShareButton
+            socialMedia={'facebook'}
+            url={URL}
+            media={"https://imgs.xkcd.com/comics/error_code.png"}
+            text={description}
+          />
+        </div>
       </div>
     </>
   );
