@@ -4,12 +4,18 @@ import {
 } from "react";
 import numeral from "numeral";
 import moment from "moment-timezone";
-import * as BlobUtil from 'blob-util';
 import Header from "../component/Header";
+import { generateOpenGrahpImage } from "../lib/getOgImage";
 
-export default function Home() {
-  const URL = "https://thailand-grand-opening.vercel.app";
-  // const URL = "http://localhost:3000";
+export async function getStaticProps() {
+  const ogImagePath = await generateOpenGrahpImage();
+  console.log(ogImagePath);
+
+  return { props: { ogImagePath: null } }
+}
+
+export default function Home({ ogImagePath }) {
+  const URL = process.env.BASE_URL;
   const TIMEZONE = "Asia/Bangkok";
   const INTERVAL = 1000;
   const TARGET_NUMBER_DAY_DEFAULT = 120;
@@ -23,15 +29,8 @@ export default function Home() {
 
   const [selector, setSelector] = useState(TIME.LUNGTOO);
   const [duration, setDuration] = useState(null);
-  const [sharedImage, setSharedImage] = useState(null);
 
   const { targetDay, startTime } = selector;
-
-  useEffect(async () => {
-    const url = await generateImage();
-    setSharedImage(url);
-    console.log(url);
-  }, [sharedImage]);
 
   useEffect(() => {
     const currentTime = moment.tz(TIMEZONE);
@@ -61,27 +60,6 @@ export default function Home() {
     })
   }
 
-  const generateImage = async () => {
-    const data = {
-      "day": "1245 วัน",
-      "time": "18 ชั่วโมง 55 นาที 20 วินาที",
-      "desc": "\"เริ่มนับ 16-06-2021 ตามแผนเปิดประเทศใน 120 วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา\""
-    }
-
-    const respone = await fetch(`${URL}/api/screenshot`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    const blob = await respone.blob();
-    const url = await BlobUtil.blobToDataURL(blob);
-
-    return url;
-  }
-
   const onClickShareToFacebook = () => {
 
   }
@@ -98,10 +76,9 @@ export default function Home() {
       <Header
         title={`จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}
         description={description}
-        image={sharedImage}
         link={URL}
         type="web"
-        domain={URL}
+        image={ogImagePath}
       />
       <div className="w-screen h-screen flex flex-col justify-center">
         <p className="flex justify-center py-3 text-gray-300 text-5xl font-bold">กำลังจะเปิดประเทศในอีก</p>
