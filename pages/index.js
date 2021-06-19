@@ -27,18 +27,18 @@ export default function Home({ ogImagePath, url }) {
     return `flex items-center justify-center p-4 rounded-xl hover:opacity-50 text-gray-300 ${(_mode.key === selector.key ? 'bg-transparent ring-2 ring-gray-800' : 'bg-gradient-to-r from-gray-800 to-gray-600')}`;
   };
 
-  const renderButtons = () => {
+  const renderButtons = useCallback(() => {
     return Object.values(TIME).map(item => {
       return <button key={item.key} className={getButtonStyle(item)} onClick={() => setCounterTime(item)} type="submit">{item.btnText}</button>
     })
-  }
+  });
 
-  const renderSpecialMsg = (selector) => {
+  const renderSpecialMsg = useCallback((selector) => {
     const { specialText, targetDay } = selector;
     if (targetDay < 0) {
       return <div className="flex justify-center m-10 text-green-500 text-6xl text-center font-bold">{specialText}</div>
     }
-  }
+  });
 
   const renderSocialShare = useCallback((day) => {
     const socials = ['facebook', 'twitter'];
