@@ -1,10 +1,10 @@
+import { useCallback } from 'react';
 import ShareButton from 'react-social-share-buttons';
 import numeral from "numeral";
 import moment from "moment-timezone";
 import Header from "../component/Header";
 import useCount from "../hook/count";
 import { generateOpenGrahpImage } from "../lib/getOgImage";
-import { useCallback } from 'react';
 
 export async function getStaticProps() {
   const TIMEZONE = "Asia/Bangkok";
@@ -27,22 +27,35 @@ export default function Home({ ogImagePath, url }) {
     return `flex items-center justify-center p-4 rounded-xl hover:opacity-50 text-gray-300 ${(_mode.key === selector.key ? 'bg-transparent ring-2 ring-gray-800' : 'bg-gradient-to-r from-gray-800 to-gray-600')}`;
   };
 
-  const renderButtons = useCallback(() => {
+  const renderButtons = () => {
     return Object.values(TIME).map(item => {
       return <button key={item.key} className={getButtonStyle(item)} onClick={() => setCounterTime(item)} type="submit">{item.btnText}</button>
     })
-  });
+  };
 
-  const renderSpecialMsg = useCallback((selector) => {
-    const { specialText, targetDay } = selector;
-    if (targetDay < 0) {
-      return <div className="flex leading-normal justify-center m-10 text-green-500 text-4xl text-center font-bold bg-gray-800 p-5 rounded-lg">{specialText}</div>
+  const renderSpecialMsg = (selector) => {
+    const { specialText, isSpecial } = selector;
+    if (isSpecial) {
+      return <div className="flex leading-normal justify-center m-8 text-green-500 text-2xl md:text-4xl text-center font-bold bg-gray-800 p-5 rounded-lg">{specialText}</div>
     }
-  });
+  };
+
+  const renderCountdown = ({ day, hour, minute, second, isEventEnd }) => {
+    if (!isEventEnd) {
+      return (
+        <>
+          <p className="flex justify-center py-3 text-gray-300 lg:text-5xl md:text-3xl text-3xl font-bold">กำลังจะเปิดประเทศในอีก</p>
+          <p className="flex justify-center py-3 text-gray-300 lg:text-9xl md:text-7xl text-6xl font-bold">⌛ {numeral(day).format('###,###')} วัน</p>
+          <p className="flex justify-center py-3 text-gray-600 lg:text-4xl md:text-4xl text-2xl font-normal">{`${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}</p>
+        </>
+      );
+    } else {
+      return <p className="flex justify-center py-3 text-gray-300 lg:text-7xl md:text-7xl text-6xl font-bold text-center leading-normal">🥳 เปิดประเทศแล้ว</p>
+    }
+  };
 
   const renderSocialShare = useCallback((day) => {
     const socials = ['facebook', 'twitter'];
-
     return (
       <div className="flex flex-col md:flex-row justify-center">
         {socials.map((social, key) => {
@@ -59,16 +72,16 @@ export default function Home({ ogImagePath, url }) {
         })}
       </div>
     )
-  });
+  }, []);
 
-  const { TARGET_NUMBER_DAY_DEFAULT, TIME, TIMEZONE, setCounterTime, duration, selector } = useCount();
+  const { TARGET_NUMBER_DAY_DEFAULT, TIME, TIMEZONE, setCounterTime, duration, selector, isEventEnd } = useCount();
   const { startTime } = selector;
 
-  const hour = duration?.hours() || 0;
-  const minute = duration?.minutes() || 0;
-  const second = duration?.seconds() || 0;
-  const day = Math.floor(duration?.asDays()) || 0;
-  const eventStartTime = moment.tz(startTime, TIMEZONE).format("DD-MM-YYYY");
+  const hour = duration?.hours() || '??';
+  const minute = duration?.minutes() || '??';
+  const second = duration?.seconds() || '??';
+  const day = Math.floor(duration?.asDays()) || '??';
+  const eventStartTime = moment.tz(startTime, TIMEZONE).format("DD-MM-YYYY HH:mm");
   const description = `ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านประกาศออกมา`;
 
   return (
@@ -80,10 +93,8 @@ export default function Home({ ogImagePath, url }) {
           type="web"
           image={ogImagePath}
         />
-        <p className="flex justify-center py-3 text-gray-300 lg:text-5xl md:text-3xl text-3xl font-bold">กำลังจะเปิดประเทศในอีก</p>
-        <p className="flex justify-center py-3 text-gray-300 lg:text-9xl md:text-7xl text-6xl font-bold">⌛ {numeral(day).format('###,###')} วัน</p>
-        <p className="flex justify-center py-3 text-gray-600 lg:text-4xl md:text-4xl text-2xl font-normal">{`${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}</p>
-        <p className="flex flex-col md:flex-row justify-center text-center py-4">"เริ่มนับ <span className="text-gray-600 font-bold px-2">{eventStartTime} </span>ตามแผนเปิดประเทศใน {TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านบอกมา"</p>
+        {renderCountdown({ day, hour, minute, second, isEventEnd })}
+        <p className="flex flex-col md:flex-row justify-center text-center py-4">"เริ่มนับ <span className="text-gray-600 font-bold px-2">{eventStartTime} น.</span> ตามแผนเปิดประเทศใน {TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านบอกมา"</p>
         {renderSpecialMsg(selector)}
         <div className="flex flex-col md:flex-row justify-center m-10 md:space-x-3 space-y-3 md:space-y-0">{renderButtons()}</div>
         {renderSocialShare(day)}
