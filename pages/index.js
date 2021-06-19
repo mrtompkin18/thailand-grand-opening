@@ -48,7 +48,7 @@ export default function Home({ ogImagePath }) {
               compact={true}
               socialMedia={social}
               text={`กำลังจะเปิดประเทศในอีก ${day} วัน`}
-              url={'https://thailand-grand-opening.vercel.app/'}
+              url={URL}
             />
           );
         })}
