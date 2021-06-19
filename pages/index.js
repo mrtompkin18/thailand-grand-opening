@@ -11,8 +11,8 @@ export async function getStaticProps() {
   const durationTime = moment.duration(eventTime.diff(currentTime));
 
   const day = Math.floor(durationTime.asDays());
-  const time = `${durationTime.hours()} hours ${durationTime.minutes()} minutes ${durationTime.seconds()} seconds | 120 day challange`;
-  const desc = `For Educational Purposes Only.`;
+  const time = `${durationTime.hours()} ชั่วโมง ${durationTime.minutes()} นาที ${durationTime.seconds()} วินาที`;
+  const desc = `เว็บนี้จัดทำเพื่อใช้ศึกษาการเขียนโปรแกรมเท่านั้น บุคคลอ้างอิงคือลุงหน้าปากซอย`;
   const ogImagePath = await generateOpenGrahpImage(day, time, desc);
 
   return { props: { ogImagePath }, revalidate: 1 }
