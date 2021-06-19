@@ -21,7 +21,7 @@ export async function getStaticProps() {
 export default function Home({ ogImagePath }) {
 
   const getButtonStyle = _mode => {
-    return `flex items-center justify-center p-4 rounded-xl hover:opacity-50 text-gray-300 bg-gradient-to-r ${(_mode.key === selector.key ? 'bg-transparent ring-2 ring-gray-800' : 'from-gray-800 to-gray-600')}`;
+    return `flex items-center justify-center p-4 rounded-xl hover:opacity-50 text-gray-300 ${(_mode.key === selector.key ? 'bg-transparent ring-2 ring-gray-800' : 'bg-gradient-to-r from-gray-800 to-gray-600')}`;
   };
 
   const renderButtons = () => {
