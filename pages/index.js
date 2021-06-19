@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import numeral from "numeral";
 import moment from "moment-timezone";
 import Header from "../component/Header";
@@ -39,7 +40,7 @@ export default function Home({ ogImagePath }) {
 
   const { TARGET_NUMBER_DAY_DEFAULT, TIME, TIMEZONE, setCounterTime, duration, selector } = useCount();
   const { startTime } = selector;
-  const URL = process.env.BASE_URL;
+  const URL = process.env.BASE_URL || '';
 
   const hour = duration?.hours() || 0;
   const minute = duration?.minutes() || 0;
@@ -64,9 +65,9 @@ export default function Home({ ogImagePath }) {
         {renderSpecialMsg(selector)}
         <div className="flex flex-col md:flex-row justify-center m-10 md:space-x-3 space-y-3 md:space-y-0">{renderButtons()}</div>
         <div className="w-auto my-0 mx-auto">
-          <a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${URL}`}>
+          <Link href={{ pathname: 'https://www.facebook.com/sharer/sharer.php', query: { u: URL } }}>
             <button className="flex items-center justify-center px-6 py-3 rounded-lg hover:opacity-90 text-white bg-blue-600">Share to Facebook</button>
-          </a>
+          </Link>
         </div>
       </div>
     </>
