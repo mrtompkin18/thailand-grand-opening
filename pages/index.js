@@ -47,7 +47,7 @@ export default function Home({ ogImagePath, url }) {
       setMinute(eventTime.diff(now, "minute") % 60);
       setSecond(eventTime.diff(now, "second") % 60);
       setEventDate(eventTime.format(DATE_FORMAT));
-    }, 0);
+    }, 10);
 
     return () => clearInterval(intervalId);
 
