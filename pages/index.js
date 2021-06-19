@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import ShareButton from 'react-social-share-buttons';
 import numeral from "numeral";
 import moment from "moment-timezone";
 import Header from "../component/Header";
@@ -38,6 +38,24 @@ export default function Home({ ogImagePath }) {
     }
   }
 
+  const renderSocialShare = (day) => {
+    const socials = ['facebook', 'twitter'];
+    return (
+      <div className="flex flex-col md:flex-row justify-center">
+        {socials.map(social => {
+          return (
+            <ShareButton
+              compact={true}
+              socialMedia={social}
+              text={`กำลังจะเปิดประเทศในอีก ${day} วัน`}
+              url={'https://thailand-grand-opening.vercel.app/'}
+            />
+          );
+        })}
+      </div>
+    )
+  }
+
   const { TARGET_NUMBER_DAY_DEFAULT, TIME, TIMEZONE, setCounterTime, duration, selector } = useCount();
   const { startTime } = selector;
   const URL = process.env.BASE_URL || '';
@@ -64,11 +82,7 @@ export default function Home({ ogImagePath }) {
         <p className="flex flex-col md:flex-row justify-center text-center py-4">"เริ่มนับ <span className="text-gray-600 font-bold px-2">{eventStartTime} </span>ตามแผนเปิดประเทศใน {TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านบอกมา"</p>
         {renderSpecialMsg(selector)}
         <div className="flex flex-col md:flex-row justify-center m-10 md:space-x-3 space-y-3 md:space-y-0">{renderButtons()}</div>
-        <div className="w-auto my-0 mx-auto">
-          <Link href={{ pathname: 'https://www.facebook.com/sharer/sharer.php', query: { u: URL } }}>
-            <button className="flex items-center justify-center px-6 py-3 rounded-lg hover:opacity-90 text-white bg-blue-600">Share to Facebook</button>
-          </Link>
-        </div>
+        {renderSocialShare(day)}
       </div>
     </>
   );
