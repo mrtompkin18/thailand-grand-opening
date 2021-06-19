@@ -4,6 +4,7 @@ import moment from "moment-timezone";
 import Header from "../component/Header";
 import useCount from "../hook/count";
 import { generateOpenGrahpImage } from "../lib/getOgImage";
+import { useCallback } from 'react';
 
 export async function getStaticProps() {
   const TIMEZONE = "Asia/Bangkok";
@@ -11,15 +12,16 @@ export async function getStaticProps() {
   const eventTime = moment.tz("2021-07-01T00:00:00", TIMEZONE).add(120, 'days');
   const durationTime = moment.duration(eventTime.diff(currentTime));
 
+  const url = process.env.BASE_URL;
   const day = Math.floor(durationTime.asDays());
   const time = `${durationTime.hours()} ชั่วโมง ${durationTime.minutes()} นาที ${durationTime.seconds()} วินาที`;
   const desc = `เว็บนี้จัดทำเพื่อใช้ศึกษาการเขียนโปรแกรมเท่านั้น บุคคลอ้างอิงคือลุงหน้าปากซอย`;
   const ogImagePath = await generateOpenGrahpImage(day, time, desc);
 
-  return { props: { ogImagePath }, revalidate: 1 }
+  return { props: { ogImagePath, url }, revalidate: 1 }
 }
 
-export default function Home({ ogImagePath }) {
+export default function Home({ ogImagePath, url }) {
 
   const getButtonStyle = _mode => {
     return `flex items-center justify-center p-4 rounded-xl hover:opacity-50 text-gray-300 ${(_mode.key === selector.key ? 'bg-transparent ring-2 ring-gray-800' : 'bg-gradient-to-r from-gray-800 to-gray-600')}`;
@@ -38,27 +40,27 @@ export default function Home({ ogImagePath }) {
     }
   }
 
-  const renderSocialShare = (day) => {
+  const renderSocialShare = useCallback((day) => {
     const socials = ['facebook', 'twitter'];
+
     return (
       <div className="flex flex-col md:flex-row justify-center">
         {socials.map(social => {
           return (
             <ShareButton
-              compact={true}
+              compact
               socialMedia={social}
               text={`กำลังจะเปิดประเทศในอีก ${day} วัน`}
-              url={URL}
+              url={url}
             />
           );
         })}
       </div>
     )
-  }
+  });
 
   const { TARGET_NUMBER_DAY_DEFAULT, TIME, TIMEZONE, setCounterTime, duration, selector } = useCount();
   const { startTime } = selector;
-  const URL = process.env.BASE_URL || '';
 
   const hour = duration?.hours() || 0;
   const minute = duration?.minutes() || 0;
@@ -71,7 +73,7 @@ export default function Home({ ogImagePath }) {
     <>
       <Header
         description={description}
-        link={URL}
+        link={url}
         type="web"
         image={ogImagePath}
       />
