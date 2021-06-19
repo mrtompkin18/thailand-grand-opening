@@ -36,7 +36,7 @@ export default function Home({ ogImagePath, url }) {
   const renderSpecialMsg = useCallback((selector) => {
     const { specialText, targetDay } = selector;
     if (targetDay < 0) {
-      return <div className="flex justify-center m-10 text-green-500 text-6xl text-center font-bold">{specialText}</div>
+      return <div className="flex leading-normal justify-center m-10 text-green-500 text-4xl text-center font-bold bg-gray-800 p-5 rounded-lg">{specialText}</div>
     }
   });
 
@@ -45,14 +45,16 @@ export default function Home({ ogImagePath, url }) {
 
     return (
       <div className="flex flex-col md:flex-row justify-center">
-        {socials.map(social => {
+        {socials.map((social, key) => {
           return (
-            <ShareButton
-              compact
-              socialMedia={social}
-              text={`กำลังจะเปิดประเทศในอีก ${day} วัน`}
-              url={url}
-            />
+            <div className="mt-2 md:mt-0" key={key}>
+              <ShareButton
+                compact
+                socialMedia={social}
+                text={`กำลังจะเปิดประเทศในอีก ${day} วัน`}
+                url={url}
+              />
+            </div>
           );
         })}
       </div>
@@ -70,14 +72,14 @@ export default function Home({ ogImagePath, url }) {
   const description = `ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านประกาศออกมา`;
 
   return (
-    <>
-      <Header
-        description={description}
-        link={url}
-        type="web"
-        image={ogImagePath}
-      />
-      <div className="w-screen h-screen flex flex-col justify-center p-4">
+    <div className="w-screen h-full md:h-screen flex flex-col justify-center">
+      <div className="p-4">
+        <Header
+          description={description}
+          link={url}
+          type="web"
+          image={ogImagePath}
+        />
         <p className="flex justify-center py-3 text-gray-300 lg:text-5xl md:text-3xl text-3xl font-bold">กำลังจะเปิดประเทศในอีก</p>
         <p className="flex justify-center py-3 text-gray-300 lg:text-9xl md:text-7xl text-6xl font-bold">⌛ {numeral(day).format('###,###')} วัน</p>
         <p className="flex justify-center py-3 text-gray-600 lg:text-4xl md:text-4xl text-2xl font-normal">{`${hour} ชั่วโมง ${minute} นาที ${second} วินาที`}</p>
@@ -86,6 +88,6 @@ export default function Home({ ogImagePath, url }) {
         <div className="flex flex-col md:flex-row justify-center m-10 md:space-x-3 space-y-3 md:space-y-0">{renderButtons()}</div>
         {renderSocialShare(day)}
       </div>
-    </>
+    </div>
   );
 }
