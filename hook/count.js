@@ -10,14 +10,14 @@ export default function useCount() {
     const TARGET_NUMBER_DAY_DEFAULT = 120;
 
     const TIME = {
-        LUNGTOO: { key: '1', targetDay: TARGET_NUMBER_DAY_DEFAULT, startTime: "2021-06-16T18:00:00", btnText: 'นับแบบลุง', specialText: '' },
-        SUPATTHANAPONG: { key: '2', targetDay: TARGET_NUMBER_DAY_DEFAULT, startTime: "2021-07-01T00:00:00", btnText: 'นับแบบลูกน้องลุง', specialText: '' },
+        SUPATTHANAPONG: { key: '1', targetDay: TARGET_NUMBER_DAY_DEFAULT, startTime: "2021-07-01T00:00:00", btnText: 'นับแบบลูกน้องลุง', specialText: '' },
+        LUNGTOO: { key: '2', targetDay: TARGET_NUMBER_DAY_DEFAULT, startTime: "2021-06-16T18:00:00", btnText: 'นับแบบลุง', specialText: '' },
         MERCURY: { key: '3', targetDay: TARGET_NUMBER_DAY_DEFAULT * 58.6, startTime: "2021-07-01T00:00:00", btnText: 'นับแบบอยู่บนดาวพุธ', specialText: '' },
         VEUS: { key: '4', targetDay: TARGET_NUMBER_DAY_DEFAULT * 117, startTime: "2021-07-01T00:00:00", btnText: 'นับแบบอยู่บนดาวศุกร์' },
         PR: { key: '5', targetDay: -1, startTime: "2021-07-01T00:00:00", btnText: 'นับแบบโฆษกลุง', specialText: 'อ่ะๆ ล้อเล่น~ อ่ะหยอกๆ~' },
     }
 
-    const [selector, setSelector] = useState(TIME.LUNGTOO);
+    const [selector, setSelector] = useState(TIME.SUPATTHANAPONG);
     const [duration, setDuration] = useState(null);
 
     const { targetDay, startTime } = selector;

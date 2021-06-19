@@ -10,7 +10,7 @@ export async function getStaticProps() {
   const eventTime = moment.tz("2021-07-01T00:00:00", TIMEZONE).add(120, 'days');
   const durationTime = moment.duration(eventTime.diff(currentTime));
 
-  const day = `${Math.floor(durationTime.asDays())} days left`;
+  const day = Math.floor(durationTime.asDays());
   const time = `${durationTime.hours()} hours ${durationTime.minutes()} minutes ${durationTime.seconds()} seconds | 120 day challange`;
   const desc = `For Educational Purposes Only.`;
   const ogImagePath = await generateOpenGrahpImage(day, time, desc);
@@ -46,7 +46,7 @@ export default function Home({ ogImagePath }) {
   const second = duration?.seconds() || 0;
   const day = Math.floor(duration?.asDays()) || 0;
   const eventStartTime = moment.tz(startTime, TIMEZONE).format("DD-MM-YYYY");
-  const description = `จะเปิดประเทศในอีก ${day} วัน ${hour} ชั่วโมง ${minute} นาที ${second} วินาที \n ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ พล.อ.ประยุทธ์ จันทร์โอชา นายกรัฐมนตรีประกาศออกมา`;
+  const description = `ตามแผนเปิดประเทศใน ${TARGET_NUMBER_DAY_DEFAULT} วัน ตามที่ลุงแถวบ้านประกาศออกมา`;
 
   return (
     <>
