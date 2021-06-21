@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "chrome-aws-lambda": "^10.0.0",
     "dayjs": "^1.10.5",
     "next": "11.0.0",
     "numeral": "^2.0.6",
