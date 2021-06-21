@@ -6,6 +6,7 @@ import Header from "../component/Header";
 import { useState, useEffect } from 'react';
 import { generateOpenGrahpImage } from "../lib/getOgImage";
 import { DATE_FORMAT, MODE } from "../constant";
+
 import "dayjs/locale/th";
 
 dayjs.locale("th");
@@ -27,7 +28,7 @@ export async function getStaticProps() {
 
   return {
     props: { ogImagePath, url },
-    revalidate: 10
+    revalidate: 5
   }
 }
 
