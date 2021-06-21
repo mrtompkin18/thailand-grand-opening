@@ -25,7 +25,10 @@ export async function getStaticProps() {
 
   const ogImagePath = await generateOpenGrahpImage(numeral(d).format('###,###'), time, desc);
 
-  return { props: { ogImagePath, url }, revalidate: 10 }
+  return {
+    props: { ogImagePath, url },
+    revalidate: 10
+  }
 }
 
 export default function Home({ ogImagePath, url }) {
