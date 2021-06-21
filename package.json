@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "dayjs": "^1.10.5",
-    "moment-timezone": "^0.5.33",
     "next": "11.0.0",
     "numeral": "^2.0.6",
     "puppeteer-social-image": "^0.8.1",
