@@ -106,7 +106,7 @@ export default function Home({ ogImagePath, url }) {
 
   return (
     <>
-      <Header link={url} type="web" image={ogImagePath} />
+      <Header link={url} type="website" image={ogImagePath} />
       <div className="w-screen h-full md:h-screen flex flex-col justify-center">
         <div className="p-4">
           {renderCountdown()}
