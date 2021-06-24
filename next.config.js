@@ -2,7 +2,7 @@ module.exports = {
     async headers() {
         return [
             {
-                source: '/api/og',
+                source: '/api/og-image.png',
                 headers: [
                     {
                         key: 'Content-Type',

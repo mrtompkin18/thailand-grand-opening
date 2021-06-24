@@ -12,7 +12,7 @@ function Header({ url }) {
             <meta property="og:url" content={url} />
             <meta property="og:title" content="เหลืออีกกี่วันกันนะ ? ถึงเปิดประเทศตามที่ลุงแถวบ้านบอก" />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={`${url}/api/og`} />
+            <meta property="og:image" content={`${url}/api/og-image.png`} />
             <meta property="og:type" content="website" />
         </Head>
     );
