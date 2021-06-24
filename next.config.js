@@ -10,7 +10,7 @@ module.exports = {
                     },
                     {
                         key: 'Cache-Control',
-                        value: 'private, max-age=0, no-cache'
+                        value: 'public, immutable, no-transform, s-max-age=21600, max-age=21600'
                         // value: 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
                     },
                 ],

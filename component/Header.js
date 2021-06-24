@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import dayjs from 'dayjs';
 
 function Header({ url }) {
     const description = "ตามแผนเปิดประเทศใน 120 วัน ตามที่ลุงแถวบ้านประกาศออกมา";
@@ -13,7 +14,8 @@ function Header({ url }) {
             <meta property="og:title" content="เหลืออีกกี่วันกันนะ ? ถึงเปิดประเทศตามที่ลุงแถวบ้านบอก" />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={`${url}/api/og-image.png`} />
-            <meta property="og:type" content="website" />
+            <meta property="og:updated_time" content={`${dayjs().format()}`} />
+            <meta property="og:type" content="article" />
         </Head>
     );
 }
