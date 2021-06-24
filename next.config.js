@@ -6,11 +6,12 @@ module.exports = {
                 headers: [
                     {
                         key: 'Content-Type',
-                        value: 'image/png',
+                        value: 'image/png'
                     },
                     {
                         key: 'Cache-Control',
-                        value: 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
+                        value: 'private, max-age=0, no-cache'
+                        // value: 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
                     },
                 ],
             },
