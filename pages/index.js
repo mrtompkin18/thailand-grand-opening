@@ -56,6 +56,7 @@ export default function Home({ url, og }) {
             <div className="mt-2 md:mt-0" key={key}>
               <ShareButton
                 compact
+                text={`กำลังจะเปิดประเทศในอีก ${day} วัน (${selectedMode.btnText})`}
                 socialMedia={social}
                 url={url} />
             </div>
