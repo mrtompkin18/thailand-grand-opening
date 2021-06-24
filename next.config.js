@@ -1,17 +1,20 @@
-// next.config.js
 module.exports = {
     async headers() {
         return [
             {
-                // matching all API routes
-                source: "/api/:path*",
+                source: '/api/og',
                 headers: [
-                    { key: "Access-Control-Allow-Credentials", value: "true" },
-                    { key: "Access-Control-Allow-Origin", value: "*" },
-                    { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-                    { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
-                ]
-            }
+                    {
+                        key: 'Content-Type',
+                        value: 'image/png',
+                    },
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, immutable, no-transform, s-maxage=31536000, max-age=31536000',
+                    },
+                ],
+            },
         ]
-    }
-};
+    },
+}
+}
