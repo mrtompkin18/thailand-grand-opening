@@ -12,13 +12,11 @@ dayjs.locale("th");
 
 export function getStaticProps() {
   return {
-    props: {
-      url: process.env.BASE_URL
-    }
+    props: { url: process.env.BASE_URL }
   }
 }
 
-export default function Home({ url }) {
+export default function Home({ url, og }) {
   const [selectedMode, setSelectedMode] = useState(MODE.SUPATTHANAPONG);
   const [timer, setTimer] = useState({ day: '', hour: '', minute: '', second: '' });
 
